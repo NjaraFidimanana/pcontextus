@@ -7,19 +7,42 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.ML;
+using pcontextus.Training;
+using Serilog.Extensions.Logging;
 
 namespace pcontextus
 {
     public class Program
     {
-        public static void Main(string[] args)
+       public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            
         }
+
+
+
+      
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+
+             .ConfigureAppConfiguration((hostingContext, config) =>
+             {
+                 var env = hostingContext.HostingEnvironment;
+
+                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+
+                 config.AddEnvironmentVariables();
+             })
+            .ConfigureLogging((hostingContext, logging) =>
+            {
+                logging.AddProvider(new SerilogLoggerProvider(dispose: true));
+            })
+                
+            .UseStartup<Startup>()
                 .Build();
     }
 }

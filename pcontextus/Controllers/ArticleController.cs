@@ -1,5 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PContextus.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ namespace pcontextus.Controllers
     [Route("api/[controller]/[action]")]
     public class ArticleController : Controller
     {
-        public ArticleController()
+
+        private readonly IRecommendationContentService _recommendationContentService;
+
+        public ArticleController(IRecommendationContentService recommendationContentService)
         {
 
-
+            _recommendationContentService = recommendationContentService;
 
         }
 
@@ -30,9 +34,23 @@ namespace pcontextus.Controllers
 
         // GET api/article/language/context/tag
         [HttpGet("{language}/identify/{id}/context/{cxt}/{tag}")]
-        public IEnumerable<string> Contents(string language,, string id,int cxt,int tag)
+        public async Task<IActionResult> Contents(string language, string id,int cxt,int tag)
         {
-            return new string[] { language, "value: "+cxt };
-        }
+            try {
+               var contentReturned= await _recommendationContentService.PerformContentFilteringAsync(null);
+
+                return Json(new
+                {
+                    data = contentReturned,
+                    totalResult = contentReturned.Count()
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { error = "An error occured" });
+            }
+        }   
     }
 }
