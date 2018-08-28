@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5b7ef40bba40615256f3e9f0"},"Urn":"2526","Username":"Chetan Mohamed","Segments":[{"SegmentedCode":"101","ExpiryDate":"2018-10-24","SegmentedValue":"new user"}],"TriedBrand":"Always|Olay","FavoriteSection":"Family","Status":"Proactif"}
+{"_id":{"$oid":"5b7fe653ba40615256f48dfc"},"Urn":"2528","Username":"Jean Michel","Segments":[{"SegmentedCode":"101","ExpiryDate":"2018-10-24","SegmentedValue":"new user"}],"TriedBrand":"Olay|Ariel","FavoriteSection":"Home","Status":"Predictif"}
+{"_id":{"$oid":"5b7fe773ba40615256f48ef9"},"Urn":"2538","Username":"Ali Dan","Segments":[{"SegmentedCode":"101","ExpiryDate":"2018-10-24","SegmentedValue":"new user"}],"TriedBrand":"Olay|Flash|Olay|Ariel","FavoriteSection":"Home","Status":"Cognitif"}

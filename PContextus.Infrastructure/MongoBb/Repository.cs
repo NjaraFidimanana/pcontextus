@@ -109,8 +109,6 @@ namespace PContextus.Infrastructure.MongoDb
 
             var updateDef = Builders<T>.Update.Set(keyValue.Key, keyValue.Value);
 
-           // Builders<T>.Update.Unset(x=>x.)
-
             await context.GetCollection<T>().UpdateOneAsync(filter,
                   updateDef,
                    new UpdateOptions
@@ -119,6 +117,23 @@ namespace PContextus.Infrastructure.MongoDb
                    }
                   );  
           
+        }
+
+        async Task IRepository.UpdateOneAsync<T>(T entity, UpdateDefinition<T> update, FilterDefinition<T> filter)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await context.GetCollection<T>().UpdateOneAsync(filter,
+                  update,
+                   new UpdateOptions
+                   {
+                       IsUpsert = true,
+                   }
+                  );
+
         }
 
 

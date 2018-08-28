@@ -8,6 +8,8 @@ namespace PContextus.Core.Domain.Entities
     {
         public string Urn;
 
+        public string UserName;
+
         public List<Segmentation> Segments;
 
         public string TriedBrand;

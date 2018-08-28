@@ -35,5 +35,7 @@ namespace Contextus.Core.Domain
         Task DeleteManyAsync<T>(Expression<Func<T, bool>> filter = null) where T : class, IEntity;
 
         Task UpdateOneAsync<T>(T entity, KeyValuePair<string, float> keyValue, FilterDefinition<T> filter) where T : class, IEntity;
+
+        Task UpdateOneAsync<T>(T entity, UpdateDefinition<T> update, FilterDefinition<T> filter) where T : class, IEntity;
     }
 }

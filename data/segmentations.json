@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5b8524731b3bf8fd24accd35"},"SegmentedCode":"N20","SegmentedValue":"New User","Expiration":30}
+{"_id":{"$oid":"5b8526711b3bf8fd24acce3a"},"SegmentedCode":"BT01","SegmentedValue":"Always Known Trier","Expiration":15}
+{"_id":{"$oid":"5b85270d1b3bf8fd24acceaf"},"SegmentedCode":"CS001","SegmentedValue":"Teens Favorite","Expiration":15}
+{"_id":{"$oid":"5b8548f1655a3f4f2c97a7fe"},"CreatedAt":{"$date":"2018-08-28T13:06:57.525Z"},"UpdatedAt":null,"CreatedBy":null,"UpdatedBy":null,"SegmentedCode":"C45","ExpiryDate":null,"Expiration":30,"SegmentedValue":"Test"}

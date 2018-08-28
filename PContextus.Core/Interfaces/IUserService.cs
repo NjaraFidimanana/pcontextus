@@ -9,5 +9,9 @@ namespace PContextus.Core.Interfaces
     public interface IUserService
     {
         Task<UserProfile> GetCurrentUserAsync(string urn);
+
+        Task<IEnumerable<UserProfile>> GetUsers();
+
+        Task<UserProfile> UpdateCustomerSegment(string urn, string segmentedCode);
     }
 }
