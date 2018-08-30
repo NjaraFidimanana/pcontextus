@@ -12,9 +12,13 @@ namespace PContextus.Core.Domain.Entities
 
         public List<Segmentation> Segments;
 
+
         public string TriedBrand;
 
+
         public string FavoriteSection;
+
+        public string Status { get; set; }
 
 
     }

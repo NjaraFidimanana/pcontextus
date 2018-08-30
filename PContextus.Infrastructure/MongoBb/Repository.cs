@@ -17,7 +17,27 @@ namespace PContextus.Infrastructure.MongoDb
         {
             this.context = context;
         }
+        async Task<IEnumerable<T>> IRepository.FindAsync<T>(FilterDefinition<T> filterDefinition, Func<IEnumerable<T>, IOrderedEnumerable<T>> orderBy, int? skip, int? take) {
 
+            IEnumerable<T> query = await context.GetCollection<T>().Find(filterDefinition).ToListAsync();
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query;
+        }
         async Task<IEnumerable<T>> IRepository.GetAllAsync<T>(Func<T, bool> filter, Func<IEnumerable<T>, IOrderedEnumerable<T>> orderBy, int? skip, int? take)
         {
             IEnumerable<T> query = await context.GetCollection<T>().Find(f => true).ToListAsync();

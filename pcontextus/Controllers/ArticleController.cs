@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PContextus.Core.Domain;
+using PContextus.Core.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,18 @@ namespace pcontextus.Controllers
             return new string[] { language, "value2" };
         }
 
-        // GET api/article/language/context/tag
-        [HttpGet("{language}/identify/{id}/context/{cxt}/{tag}")]
-        public async Task<IActionResult> Contents(string language, string id,int cxt,int tag)
+        // GET api/article/context
+        [HttpGet("context/{cxt}/identify/{id}")]
+        public async Task<IActionResult> Contents(int cxt ,string id)
         {
             try {
-               var contentReturned= await _recommendationContentService.PerformContentFilteringAsync(null);
+
+                var conditionFilter = new ConditionFilter
+                {
+                    UserId=id,
+                    ContextId=cxt
+                };
+               var contentReturned= await _recommendationContentService.PerformContentFilteringAsync(conditionFilter);
 
                 return Json(new
                 {

@@ -16,6 +16,11 @@ namespace Contextus.Core.Domain
             int? skip = null,
             int? take = null) where T : class, IEntity;
 
+        Task<IEnumerable<T>> FindAsync<T>(
+            FilterDefinition<T> filterDefinition,
+            Func<IEnumerable<T>, IOrderedEnumerable<T>> orderBy =null, int? skip =null, int? take =null)
+            where T : class, IEntity;
+
         Task<T> FindAsync<T>(Expression<Func<T, bool>> filter) where T : class, IEntity;
 
         Task<T> GetAsync<T>(object id) where T : class, IEntity;

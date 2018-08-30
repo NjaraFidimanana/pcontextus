@@ -19,6 +19,8 @@ namespace PContextus.DependencyResolution
 
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IBusinessRule, BusinessRulesService>();
+
         }
     }
 }
