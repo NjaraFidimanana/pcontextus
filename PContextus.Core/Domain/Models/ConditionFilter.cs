@@ -12,5 +12,17 @@ namespace PContextus.Core.Domain.Models
 
         public int ContextId;
 
+        public string ContentType;
+
+        public string Brand;
+
+        public string Category;
+
+        public string SubCategory;
+
+        public string Ordering;
+
+        public int Page;
+
     }
 }

@@ -10,6 +10,10 @@ namespace PContextus.Core.Domain.Entities
 
         public Analytics  Analytics{get ; set;}
 
+        public float Reviews { get; set; }
+
+        public float RateReview { get; set; }
+
 
     }
 }

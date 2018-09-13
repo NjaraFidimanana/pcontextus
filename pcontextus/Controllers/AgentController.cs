@@ -41,6 +41,19 @@ namespace pcontextus.Controllers
                 
          }
 
+        [HttpGet]
+        public bool InsertContentProduct() {
+
+            try {
+                _agentService.InsertProductAsync();
+            }
+            catch (Exception ex) {
+
+            }
+            
+
+            return true;
+        }
 
     }
 }

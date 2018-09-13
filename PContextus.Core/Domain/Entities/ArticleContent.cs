@@ -1,4 +1,6 @@
 ﻿
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using PContextus.ML.Data;
 using PContextus.ML.Predictions;
 using System;
@@ -9,19 +11,47 @@ namespace PContextus.Core.Domain.Entities
 {
     public class ArticleContent : EntityBase<string>
     {
-        public string ContentId;
+        public string ContentId { get; set; }
 
-        public string Title;
+        public string Title { get; set; }
 
-        public string Brand;
+        public string Brand { get; set; }
 
-        public string Market;
+        public string Market { get; set; }
 
-        public Ratings Ratings;
+        public Ratings Ratings { get; set; }
 
-        public float RelevantScoring;
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public float RelevantScoring { get; set; }
 
-        public Category Category;
+        public Category Category { get; set; }
+
+        public string ContentType { get; set; }
+
+        public string ContentImageUrl { get; set; }
+
+        public string Gtins { get; set; }
+
+
+        public float Views {
+            get {
+                return Ratings.Analytics.GaViews;
+            }
+        }
+
+        public float Rated {
+            get
+            {
+                return Ratings.RateReview;
+            }
+        }
+
+        public float ReviewCount {
+            get
+            {
+                return Ratings.Reviews;
+            }
+        }
 
         public static List<ArticleContentData> Transform(IEnumerable<ArticleContent> dataset) {
             var articleContentData = new List<ArticleContentData>();

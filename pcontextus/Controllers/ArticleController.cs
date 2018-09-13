@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using PContextus.Core.Domain;
 using PContextus.Core.Domain.Models;
 using System;
@@ -35,6 +36,7 @@ namespace pcontextus.Controllers
 
         // GET api/article/context
         [HttpGet("context/{cxt}/identify/{id}")]
+        [EnableCors("AllowSpecificOrigin")]
         public async Task<IActionResult> Contents(int cxt ,string id)
         {
             try {
@@ -58,6 +60,29 @@ namespace pcontextus.Controllers
 
                 return Json(new { error = "An error occured" });
             }
-        }   
+        }
+        [HttpPost]
+        [EnableCors("AllowSpecificOrigin")]
+        public async Task<IActionResult> Find([FromBody] ConditionFilter conditionFilter) {
+
+            try
+            {
+
+                var contentReturned = await _recommendationContentService.Find(conditionFilter);
+
+                return Json(new
+                {
+                    contents = contentReturned,
+                    totalResult = contentReturned.Count(),
+                    page= conditionFilter.Page
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { error = "An error occured" });
+            }
+        }
     }
 }

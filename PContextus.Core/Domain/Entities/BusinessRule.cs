@@ -10,7 +10,7 @@ namespace PContextus.Core.Domain.Entities
         public int ContextId { get; set; }
 
 
-        public string BuninessType { get; set; }
+        public string BusinessType { get; set; }
 
 
         public int NumberOfContents { get; set; }
@@ -20,6 +20,9 @@ namespace PContextus.Core.Domain.Entities
 
 
         public string Default { get; set; }
+
+
+        public string ContentType { get; set; }
 
     
     }

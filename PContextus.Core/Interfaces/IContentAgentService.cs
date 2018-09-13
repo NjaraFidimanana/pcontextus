@@ -10,5 +10,7 @@ namespace PContextus.Core.Interfaces
        void UpdateArticleContentScoring();
 
         Task InsertContentScoringAsync();
+
+        Task InsertProductAsync();
    }
 }

@@ -22,6 +22,9 @@ namespace PContextus.Core.Services
         static readonly string _modelpath = Path.Combine(Environment.CurrentDirectory, "Data", "Model.zip");
 
         static readonly string feedArticlePath = "PContextus_Article_{lang}.xml";
+        
+        static readonly string feedProductPath = "PContextus_Product_{lang}.xml";
+
 
         private readonly IRepository _repository;
 
@@ -71,6 +74,21 @@ namespace PContextus.Core.Services
             }      
         }
 
+
+        public async Task InsertProductAsync()
+        {
+            
+            var country = "EN-GB";
+
+            var articleContents = GetProductFeed(country);
+
+            foreach (var rep in articleContents)
+            {
+
+                await _repository.InsertAsync(rep);
+            }
+        }
+
         /// <summary>
         /// Get Feed Article
         /// </summary>
@@ -115,6 +133,66 @@ namespace PContextus.Core.Services
                                       }
 
                                   }).ToList();
+
+
+            return articleContents;
+        }
+
+        public IEnumerable<ArticleContent> GetProductFeed(string country) {
+
+            var downloadedFile = Path.Combine(
+             Environment.CurrentDirectory, "Data/feed", feedProductPath.Replace("{lang}", country));
+
+            var articleContents = new List<ArticleContent>();
+
+            var contentXml = File.ReadAllText(downloadedFile);
+
+            var document = XDocument.Parse(contentXml);
+
+            Random random = new Random();
+            int randomRating = random.Next(0, 1);
+
+            Random randomRateReview = new Random();
+
+            Random randomReview = new Random();
+
+            Random randomView = new Random();
+
+            try
+            {
+                articleContents = (from product in document.Descendants("Product")
+
+                                   select new ArticleContent
+                                   {
+                                       ContentId = CheckAttrValue(product.Element("ExternalId")?.Value),
+                                       Brand = CheckAttrValue(product.Element("BrandExternalId")?.Value),
+                                       Title = CheckAttrValue(product.Element("Name")?.Value),
+                                       Market = country,
+                                       ContentType = "Product",
+                                       Gtins = CheckAttrValue(product.Element("EANs")?.Element("EAN")?.Value),
+                                       RelevantScoring = (float)random.NextDouble(),
+                                       ContentImageUrl = CheckAttrValue(product.Element("ImageUrl")?.Value),
+                                       Ratings = new Ratings
+                                       {
+
+                                           RateReview = randomRateReview.Next(0, 6),
+                                           Reviews = randomReview.Next(0, 10000),
+
+                                           Analytics = new Analytics
+                                           {
+                                               GaViews = randomView.Next(50, 50000),
+                                               GaTrialRating = (float)random.NextDouble(),
+                                               GaRegistrationRating = (float)random.NextDouble()
+                                           }
+
+                                       }
+
+                                   }).ToList();
+            }
+            catch (Exception ex) {
+
+            }
+           
 
 
             return articleContents;
